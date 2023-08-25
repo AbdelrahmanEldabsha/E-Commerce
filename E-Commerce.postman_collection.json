@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "6cacb587-acf6-43f9-95f7-1dccab87e6d4",
+		"name": "E-Commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27431788"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "createCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "mobile phones",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Dell/Pictures/Screenshots/Screenshot (122).png"
+								}
+							]
+						},
+						"url": "http://localhost:3000/category/"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCategories",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "subCategory",
+			"item": [
+				{
+					"name": "createSubCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "mobile phones",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Dell/Pictures/Screenshots/Screenshot (122).png"
+								}
+							]
+						},
+						"url": "http://localhost:3000/subCategory/"
+					},
+					"response": []
+				},
+				{
+					"name": "updateSubCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:3000/category/64d8785b44a912e880cb4eb9"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSubCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/subCategory/deleteSubCategory/64d888e34ef0ffe564d2b00f"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
