@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose"
+import mongoose, { Schema, model } from "mongoose"
 
 const subCategorySchema = new Schema(
   {
@@ -38,5 +38,10 @@ const subCategorySchema = new Schema(
   },
   { timestamps: true }
 )
-const subCategoryModel = mongoose.model("SubCategory", subCategorySchema)
+subCategorySchema.virtual("Brands", {
+  ref: "Brand",
+  foreignField: "subCategoryId",
+  localField: "_id",
+})
+const subCategoryModel = model("SubCategory", subCategorySchema)
 export default subCategoryModel

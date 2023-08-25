@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose"
+import mongoose, { Schema, model } from "mongoose"
 
 const categorySchema = new Schema(
   {
@@ -31,7 +31,17 @@ const categorySchema = new Schema(
     },
     customId: String,
   },
-  { timestamps: true }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 )
-const categoryModel = mongoose.model("Category", categorySchema)
+categorySchema.virtual("SubCategories", {
+  ref: "SubCategory",
+  foreignField: "categoryId",
+  localField: "_id",
+})
+categorySchema.virtual("Brands", {
+  ref: "Brand",
+  foreignField: "categoryId",
+  localField: "_id",
+})
+const categoryModel = model("Category", categorySchema)
 export default categoryModel

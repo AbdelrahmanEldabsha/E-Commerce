@@ -1,16 +1,14 @@
-import mongoose, { Schema } from "mongoose"
+import mongoose, { Schema, model } from "mongoose"
 
 const brandSchema = new Schema(
   {
     name: {
       type: String,
-      unique: true,
       lowercase: true,
       required: true,
     },
     slug: {
       type: String,
-      unique: true,
       lowercase: true,
       required: true,
     },
@@ -29,6 +27,11 @@ const brandSchema = new Schema(
       ref: "User",
       required: false, // TODO: convert into true after creating usermodel
     },
+    categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
     subCategoryId: {
       type: Schema.Types.ObjectId,
       ref: "subCategory",
@@ -38,5 +41,5 @@ const brandSchema = new Schema(
   },
   { timestamps: true }
 )
-const brandModel = mongoose.model("Brand", brandSchema)
+const brandModel = model("Brand", brandSchema)
 export default brandModel

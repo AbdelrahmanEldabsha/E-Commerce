@@ -133,20 +133,23 @@ export const deleteCategory = async (req, res, next) => {
   })
 }
 export const getAllCategories = async (req, res, next) => {
-  const Categories = await categoryModel.find()
+  const Categories = await categoryModel
+    .find()
+    .populate([{ path: "SubCategories" }]) // using virtuals
   if (!Categories) {
     new Error("No categories found", {
       cause: 400,
     })
   }
-  const allCategoriesData = []
-  for (const category of Categories) {
-    const relatedsubCategories = await subCategoryModel.find({
-      categoryId: category._id,
-    })
-    const categeroyobj = category.toObject()
-    categeroyobj.subCategories = relatedsubCategories
-    allCategoriesData.push(categeroyobj)
-  }
-  res.status(200).json({ message: "success", categories: allCategoriesData })
+  console.log(Categories)
+  // const allCategoriesData = []
+  // for (const category of Categories) {
+  //   const relatedsubCategories = await subCategoryModel.find({
+  //     categoryId: category._id,
+  //   })
+  //   const categeroyobj = category.toObject()
+  //   categeroyobj.subCategories = relatedsubCategories
+  //   allCategoriesData.push(categeroyobj)
+  // }
+  res.status(200).json({ message: "success", Categories })
 }
