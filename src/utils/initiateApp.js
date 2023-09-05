@@ -8,6 +8,8 @@ export const initiateApp = (express, app) => {
   app.use("/category", allRouters.categoryRouter)
   app.use("/subCategory", allRouters.subCategoryRouter)
   app.use("/brand", allRouters.brandRouter)
+  app.use("/product", allRouters.productRouter)
+
   app.all("*", (req, res, next) =>
     res.status(404).json({ message: "404 Not Found URL" })
   )

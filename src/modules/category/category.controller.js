@@ -4,6 +4,8 @@ import { customAlphabet } from "nanoid"
 import cloudinary from "../../utils/coludinaryConfigrations.js"
 import { cloudinaryDeleteFolder } from "../../utils/cloudinaryDeleteFolder.js"
 import subCategoryModel from "../../../DB/models/subCategory.model.js"
+import brandModel from "../../../DB/models/brand.model.js"
+import productModel from "../../../DB/models/Product.model.js"
 
 // Create a custom nanoid generator
 const nanoId = customAlphabet("123456_=!ascbhdtel", 5)
@@ -124,18 +126,30 @@ export const deleteCategory = async (req, res, next) => {
   }
   //delete category folder and assets from cloudinary
   cloudinaryDeleteFolder(`E-Commerce/Category/${isCategoryExists.customId}`)
-  //delete al sub categories related to this category
-  const deletedSubCategories = await subCategoryModel.deleteMany({ categoryId })
+
+  //delete all sub categories related to this category
   const deletedCategory = await categoryModel.deleteOne({ _id: categoryId })
+  const deletedSubCategories = await subCategoryModel.deleteMany({ categoryId })
+  const deletedBrands = await brandModel.deleteMany({ categoryId })
+  const deletedProducts = await productModel.deleteMany({ categoryId })
+
+  if (!deletedSubCategories.deletedCount || !deletedBrands.deletedCount) {
+    return next(new Error("Delete failed", { cause: 400 }))
+  }
+
   res.status(200).json({
     message: "Category deleted sucessfully and all its' sub categories",
     deletedCategory,
   })
 }
 export const getAllCategories = async (req, res, next) => {
-  const Categories = await categoryModel
-    .find()
-    .populate([{ path: "SubCategories" }]) // using virtuals
+  const Categories = await categoryModel.find().populate([
+    {
+      path: "SubCategories",
+      select: "name",
+      populate: [{ path: "Brands", select: "name" }],
+    },
+  ]) // using virtuals
   if (!Categories) {
     new Error("No categories found", {
       cause: 400,

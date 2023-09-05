@@ -14,4 +14,11 @@ router.post(
   validationCoreFunction(addBrandSchema),
   asyncHandler(bc.addBrand)
 )
+router.put(
+  "/",
+  multerCloud(allowedExtensions.Image).single("logo"),
+  asyncHandler(bc.updateBrand)
+)
+router.delete("/", asyncHandler(bc.deleteBrand))
+router.get("/", asyncHandler(bc.getAllBrands))
 export default router

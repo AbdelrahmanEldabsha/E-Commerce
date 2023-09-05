@@ -34,7 +34,7 @@ const brandSchema = new Schema(
     },
     subCategoryId: {
       type: Schema.Types.ObjectId,
-      ref: "subCategory",
+      ref: "SubCategory",
       required: true,
     },
     customId: String,

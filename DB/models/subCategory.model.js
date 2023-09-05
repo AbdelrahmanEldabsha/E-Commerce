@@ -36,7 +36,7 @@ const subCategorySchema = new Schema(
     },
     customId: String,
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 )
 subCategorySchema.virtual("Brands", {
   ref: "Brand",
