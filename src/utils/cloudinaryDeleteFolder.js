@@ -14,6 +14,6 @@ export const cloudinaryDeleteFolder = async (folderPath) => {
     return x
   } catch (error) {
     console.log(error)
-    return next(new Error("failed to delete cloudinary files", { cause: 400 }))
+    // return next(new Error("failed to delete cloudinary files", { cause: 400 }))
   }
 }

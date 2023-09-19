@@ -6,6 +6,7 @@ import subCategoryModel from "../../../DB/models/subCategory.model.js"
 import { customAlphabet } from "nanoid"
 import cloudinary from "../../utils/coludinaryConfigrations.js"
 import { cloudinaryDeleteFolder } from "../../utils/cloudinaryDeleteFolder.js"
+import { paginationFunction } from "../../utils/paginationFunction.js"
 const nanoId = customAlphabet("123456_=!ascbhdtel", 5)
 
 export const addProduct = async (req, res, next) => {
@@ -206,4 +207,12 @@ export const updateProduct = async (req, res, next) => {
 
   await isProductExist.save()
   res.status(200).json({ message: "Done", Product: isProductExist })
+}
+
+export const getAllproducts = async (req, res, next) => {
+  const { page, size } = req.query
+  const { limit, skip } = paginationFunction({ page, size })
+  const products = await productModel.find().limit(limit).skip(skip)
+
+  res.status(200).json({ message: "sucess", products })
 }

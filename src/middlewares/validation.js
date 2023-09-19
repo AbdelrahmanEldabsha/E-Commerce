@@ -1,6 +1,13 @@
 import joi from "joi"
+import { Types } from "mongoose"
 
 const reqMethods = ["body", "query", "params", "headers", "file", "files"]
+
+const validationObjectId = (value, helper) => {
+  return Types.ObjectId.isValid(value)
+    ? true
+    : helper.message("invalid objectId")
+}
 export const generalFields = {
   email: joi
     .string()
@@ -13,6 +20,7 @@ export const generalFields = {
       "string.pattern.base": "Password regex fail",
     })
     .required(),
+  _id: joi.string().custom(validationObjectId),
 }
 export const validationCoreFunction = (schema) => {
   try {
